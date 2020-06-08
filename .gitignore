@@ -1,0 +1,4 @@
+serviceAccountKey.json
+env_variables.yaml
+*.env
+.gcloudignore

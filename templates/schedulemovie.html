@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule Movie</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <!-- App Styling -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+</head>
+<body>
+	<a href="/login" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Logout</a>
+	<a href="/browse" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Browse</a>
+	<div>
+		<form action="/schedulemovie" method="POST">
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label">Date</label>
+			<input class="mdl-textfield__input" style="width:auto;" type="date" name="date-schedule" placeholder="Date"/>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label">Time</label>
+			<input class="mdl-textfield__input" style="width:auto;" type="time" name="time-schedule" placeholder="Time"/>
+		</div>
+		<input hidden type="number" name="movie-id" value="{{.}}"/>
+		<input type="submit" value="Submit">
+		</form>
+	</div>
+</body>
+</html>

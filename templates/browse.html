@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <!-- App Styling -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+</head>
+<body>
+<!-- Square card -->
+<style>
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  background:
+   bottom right 15% no-repeat #46B6AC;
+}
+</style>
+	<a href="/login" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Logout</a>
+	<a href="/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Profiles</a>
+	<div>
+		<form action="/searchmovie" method="POST">
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label class="mdl-textfield__label">Search Movie</label>
+			<input class="mdl-textfield__input" style="width:auto;" type="text" name="query" placeholder="Movie"/>
+		</div>
+		<input type="submit" value="Submit">
+		</form>
+	</div>
+<div class="mdl-grid">
+{{$watchList := index . 0}}
+{{$watchPage := $watchList.List.Page}}
+
+{{$watchedList := index . 1}}
+{{$watchedPage := $watchedList.List.Page}}
+
+{{$sujestionsList := index . 2}}
+{{$sujestionsPage := $sujestionsList.List.Page}}
+  {{range $i, $listPage := .}}
+  <div class="mdl-cell mdl-cell--4-col">
+  	{{if eq $i 0}}
+		Watch List
+	{{else if eq $i 1}}
+		Watched List
+	{{else if eq $i 2}}
+		Sujestions List
+	{{else}}
+	{{end}}
+	<ul class="demo-list-icon mdl-list">
+		{{range $listPage.List.Results}}
+		<li class="mdl-list__item">
+			<div class="demo-card-square mdl-card mdl-shadow--2dp">
+			  <div class="mdl-card__title mdl-card--expand">
+				<h2 class="mdl-card__title-text">{{.Title}}</h2>
+			  </div>
+			  <div class="mdl-card__supporting-text">
+				{{.Overview}}
+			  </div>
+			  <div class="mdl-card__actions mdl-card--border">
+			  	{{if eq $i 0}}
+					<a href="/watchmovie/{{.ID}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+						Move to watched list
+					</a>
+					<a href="/showscheduler/{{.ID}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+						Schedule movie
+					</a>
+				{{end}}
+			  </div>
+			</div>
+	  </li>
+	  {{end}}
+	</ul>
+	{{with $listPage.Prev}}
+		{{if eq $i 0}}
+			<a href="/browse?w={{.}}&d={{$watchedPage}}&s={{$sujestionsPage}}">Prev</a>
+		{{else if eq $i 1}}
+			<a href="/browse?w={{$watchPage}}&d={{.}}&s={{$sujestionsPage}}">Prev</a>
+		{{else}}
+			<a href="/browse?w={{$watchPage}}&d={{$watchedPage}}&s={{.}}">Prev</a>
+		{{end}}
+	{{end}}
+	{{with $listPage.Next}}
+		{{if eq $i 0}}
+			<a href="/browse?w={{.}}&d={{$watchedPage}}&s={{$sujestionsPage}}">Next</a>
+		{{else if eq $i 1}}
+			<a href="/browse?w={{$watchPage}}&d={{.}}&s={{$sujestionsPage}}">Next</a>
+		{{else}}
+			<a href="/browse?w={{$watchPage}}&d={{$watchedPage}}&s={{.}}">Next</a>
+		{{end}}
+	{{end}}
+  </div>
+  {{end}}
+</div>
+
+
+
+</body>
+</html>
